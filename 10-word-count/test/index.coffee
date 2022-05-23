@@ -37,6 +37,30 @@ describe '10-word-count', ->
     expected = words: 1, lines: 1
     helper input, expected, done
 
+  it 'should count camel case as multiple words', (done) ->
+    input = 'hi there BigFella'
+    expected = words: 4, lines: 1
+    helper input, expected, done
+  
+  it 'should handle lowercase camel case as multiple words', (done) ->
+    input = 'hi there bigFella'
+    expected = words: 4, lines: 1
+    helper input, expected, done
+
+  it 'should not count invalid characters', (done) ->
+    input = 'hi there An&*!'
+    expected = words: 2, lines: 1
+    helper input, expected, done
+ 
+  it 'should count lines correctly', (done) ->
+    input = 'hi \n there \n AdSlot'
+    expected = words: 4, lines: 3
+    helper input, expected, done
+
+  it 'count anything between quotes as legit', (done) ->
+    input = '"709873 *&(** AAA" is nonsense'
+    expected = words: 3, lines: 1
+    helper input, expected, done
   # !!!!!
   # Make the above tests pass and add more tests!
   # !!!!!

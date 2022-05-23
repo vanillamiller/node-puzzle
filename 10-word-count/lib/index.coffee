@@ -15,7 +15,9 @@ module.exports = ->
 
     appendedChunk = tail + chunk.toString()
     newlineRegex = /\n/g
+    appendedChunk = appendedChunk.replace('\r', "")
     newlines = appendedChunk.match(newlineRegex)
+    appendedChunk = appendedChunk.replace('\n', "")
     lines += if newlines then newlines.length else 0;
 
     quoted = appendedChunk.match(/\\"|"(?:\\"|[^"])*"|(\+)/g) 
@@ -39,10 +41,11 @@ module.exports = ->
     regex = /^[a-zA-Z0-9_.-]+$/
 
     legalTokens = tokens.filter (t) -> t.match regex
-    words += legalTokens.length
     camelCase = legalTokens.filter (t) -> t.match camelRegex
-    legalTokens.filter (t) -> !t.match camelRegex
-    words += count for count in camelCase.map (t) -> if t[0] == t[0].toUpperCase then t.match(camelDelim).length else t.match(camelDelim).length + 1
+    legalTokens = legalTokens.filter (t) -> !t.match camelRegex
+    words += legalTokens.length
+    
+    words += count for count in camelCase.map (t) -> if t[0] == t[0].toUpperCase() then t.match(camelDelim).length else t.match(camelDelim).length + 1
 
     return cb()
 
