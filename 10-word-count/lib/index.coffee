@@ -12,7 +12,7 @@ module.exports = ->
     camelDelim = /[A-Z]/g
 
     bytes += chunk.length
-    
+
     appendedChunk = tail + chunk.toString()
     newlineRegex = /\n/g
     newlines = appendedChunk.match(newlineRegex)
@@ -41,7 +41,7 @@ module.exports = ->
     words += legalTokens.length
     camelCase = legalTokens.filter (t) -> t.match camelRegex
     legalTokens.filter (t) -> !t.match camelRegex
-    words += count for count in camelCase.map (t) -> if t[0] === t[0].toUpperCase then t.match(camelDelim).length else t.match(camelDelim).length + 1
+    words += count for count in camelCase.map (t) -> if t[0] == t[0].toUpperCase then t.match(camelDelim).length else t.match(camelDelim).length + 1
 
     return cb()
 
