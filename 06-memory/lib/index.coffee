@@ -20,7 +20,6 @@ exports.countryIpCounter = (countryCode, cb) ->
 
   for line in data when line
    line = line.split '\t'
-   if line.length > 5
    if line[3] == countryCode then counter += +line[1] - +line[0]
 
   return
