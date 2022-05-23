@@ -28,7 +28,8 @@ module.exports = ->
 
     trailingQuote = appendedChunk.match /"/
     if trailingQuote
-      tail = chunk.slice trailingQuote.index
+      tail = appendedChunk.slice trailingQuote.index
+      appendedChunk = appendedChunk.slice 0, trailingQuote.index
 
     tokens = appendedChunk.split(' ')
 
